@@ -57,6 +57,7 @@ function CategoryList() {
                             <tr className="text-center" key={index}>
                                 <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                                 <td className="border border-gray-300 px-4 py-2">{category}</td>
+                                <td className='border border-gray-300 px-4 py-2'><button className='category_del_btn'>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>

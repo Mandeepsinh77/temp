@@ -9,3 +9,18 @@
     position: fixed;
     top:8%;
 }
+
+.category_del_btn{
+    font-family: "Arimo";
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #1F3F49;
+    color: white;
+    border-radius: 5px;
+}
+
+.category_del_btn:hover{
+    background-color: rgb(199, 24, 24);
+    color: white;
+}
