@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js")
 const Customer =require("../models/customer.js")
+const Item = require("../models/item.js")
 const { body, validationResult } = require('express-validator');
 
 router.post("/createcustomer", [

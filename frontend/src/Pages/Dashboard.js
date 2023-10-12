@@ -8,6 +8,7 @@ import AddCustomer from '../Admin/FormInput.js';
 import ItemForm from '../Admin/ItemForm.js';
 import CategoryList from './CategoryList.js';
 import CustomerList from "./CustomerList.js";
+import ItemList from './ItemList.js';
 // import { Link } from 'react-router-dom'
 export default function Dashboard() {
     const links = [
@@ -27,7 +28,7 @@ export default function Dashboard() {
     const [addCustomer, setAddCustomer] = useState(false);
     const [addItem, setAddItem] = useState(false);
     const [categoryList, setcategoryList] = useState(false);
-
+    
     
     return (
         <>

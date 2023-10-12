@@ -18,6 +18,7 @@ import CategoryList from "./Pages/CategoryList";
 import CustomerList from "./Pages/CustomerList";
 import ForgotPsw from './Admin/ForgotPsw';
 import ResetPsw from './Admin/ResetPsw';
+import ItemList from './Pages/ItemList';
 const AppState = createContext();
 
 
@@ -51,7 +52,7 @@ function App() {
           <Route path="/CustomerList" element={<CustomerList />} />
           <Route path="/forgot" element={<ForgotPsw />} />
           <Route path="/forgotpassword/:id/:token" element={<ResetPsw />} />
-
+          <Route path="/itemList" element={<ItemList />} />
 
         </Routes>
       </div>
