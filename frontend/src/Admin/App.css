@@ -69,13 +69,13 @@ div.customer_form{
   font-weight: bold;
 }
 .form-row input,label{
-  padding: 10px;
+  padding: 0.3rem;
   margin: 15px;
   font-family: "Armata", Arial;
 }
 .form-row input{
   width: 250px;
-  border: 1px solid #1F3F49;
+  border: 2px solid rgb(195, 192, 192);
   outline: none;
   text-transform: capitalize;
 }
@@ -112,12 +112,12 @@ div.customer_form{
 }
 
 .form_btn{
-  width: 150px;
-  padding: 10px;
-  font-weight: bold;
+  width: 120px;
+  padding: 0.2rem;
+  font-weight: 600;
   border: 3px solid rgba(0, 0, 0, 0.18);
   color: white;
-  border-radius: 15px;
+  border-radius: 3px;
   background-color: #6AB187;
   transition: all 0.3s;
   margin-left: 5%;
@@ -169,10 +169,10 @@ div.customer_form{
 .qty_units_row input{
   padding: 0.2rem;
   margin-top: 5%;
-  border-radius: 10px;
+  border-radius: 6px;
   margin-left: 10px;
   margin-right: 10px;
-  border: 1px solid #1F3F49;
+  border: 2px solid rgb(195, 192, 192);
 }
 .item_img_input{
   display: flex;
@@ -181,13 +181,22 @@ div.customer_form{
 .item_input_row{
   padding: 1.1rem;
 }
-
+#item_qty:focus::placeholder {
+  color: rgb(244, 244, 244);
+}
+#item_qty:hover::placeholder {
+  color: rgb(244, 244, 244);
+}
+#item_qty:hover{
+  background-color: #6AB187;
+  color: white;
+}
 .item_input_row input{
   padding:0.2rem;
   border-radius: 10px;
   width: 100%;
   margin-top: 2%;
-  border: 1px solid #1F3F49;
+  border:  2px solid rgb(195, 192, 192);
   text-align: left;
 }
 .item_input_row input:focus::placeholder {
@@ -210,7 +219,7 @@ div.customer_form{
   height: 50px;
   border-radius: 10px;
   margin-top: 4%;
-  border: 1px solid #1F3F49;
+  border: 2px solid rgb(195, 192, 192);
 }
 @media screen and (min-width: 768px) {
   .item_fomr {
@@ -231,7 +240,7 @@ div.customer_form{
 }
 
 .plus_item, .minus_item{
-  border: 1px solid #163843;
+  border: 1px solid rgb(195, 192, 192);
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -249,7 +258,7 @@ div.customer_form{
   border-radius: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  border: 1px solid #1F3F49;
+  border: 1px solid rgb(195, 192, 192);
 }
 
 .item_img_input{

@@ -1,8 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const ItemForm = ({ setcategoryList}) => {
+
+    const [imageSelected,setImageSelected] = useState(null);
+
+      const handleImageChange = (e) => {
+        // Function to handle file input change
+      const file = e.target.files[0];
+      if (file) {
+        // Create a URL for the selected image
+        const imageUrl = URL.createObjectURL(file);
+        setImageSelected(imageUrl);
+      }
+    };
 
     const navigateTo = useNavigate();
     const handleGoToCategory = (event) => {
@@ -66,8 +78,29 @@ const ItemForm = ({ setcategoryList}) => {
                         </div>
                     </div>
                 </div>
-                <div className="item_img_input">
-                    <input type="file" name="" id="" />
+                <div className="p-4">
+                   <div className='item_img_input flex flex-col items-center'>
+                      <label htmlFor="image-input" className="mb-2 text-xm font-semibold">
+                          Select an image:
+                      </label>
+                      <input
+                        type="file"
+                        id="image-input"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="py-1 px-4 rounded border border-gray-300"
+                      />
+                   </div>
+                   {imageSelected && (
+                     <div className="w-[70%] h-[70%] mx-auto flex items-center">
+                       <p className="text-xl font-semibold mr-10">Selected Image:</p>
+                       <img
+                         src={imageSelected}
+                         alt="Selected"
+                         className="mt-2" style={{maxWidth: '30%'}}
+                       />
+                   </div>
+      )}
                 </div>
             </form>
         </div>

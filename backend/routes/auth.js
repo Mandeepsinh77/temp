@@ -2,8 +2,19 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js")
 const { body, validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
+const transpoter = nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user:"ashishmak2406@gmail.com",
+        pass:"absq uyme ugbo gnud"
+    }
+})
 
+const keysecret = "ahishahhbccboeiwcbnlkencbeiubckl";
 
 
 //ROUTE 1 : Create a User and store in database using :POST "/auth/createuser". it Does Not require authentication
@@ -110,5 +121,89 @@ router.post("/login", [
     }
 })
 
+//ROUTE for Forgot Password
+router.post("/sendPassowordLink",async(req,res)=>{
+    console.log(req.body);
+
+    const {email}  = req.body;
+    if(!email){
+        res.status(401).json({message:"Enter Your Email"})
+    }
+    try {
+        let user= await User.findOne({email:email});
+
+        //token generate for reset password
+        const token = jwt.sign({_id:user.id},keysecret,{
+            expiresIn:"120s"
+        });
+        
+        const userToken = await User.findByIdAndUpdate({_id:user.id},{verifytoken:token},{new:true});
+
+        console.log(userToken);
+        
+        if(userToken){
+            const mailOptions={
+                from:"ashishmak2406@gmail.com",
+                to:email,
+                subject:`Reset your passwod`,
+                text : `This Link Valid For 2 minutes http://localhost:3000/forgotpassword/${user.id}/${userToken.verifytoken}`
+            }
+            transpoter.sendMail(mailOptions,(error,info)=>{
+                if(error){ 
+                   return res.status(401).json({message:"email not send "})
+                }
+                else{
+                  return res.status(201).json({message:"email sent success "})
+                }
+            });
+        }
+        return res.status(201).json({message:"email sent success "})
+    } catch (error) {
+        res.status(401).json({message:"invalid user"})
+    }
+})
+
+
+//VERIFY USER FOR FORGOT PASSWORD
+router.get("/forgotpassword/:id/:token",async(req,res)=>{
+    const {id,token} = req.params;
+    try {
+        const validateuser = await User.findOne({_id:id,verifytoken:token})
+        
+        const verifyToken = jwt.verify(token,keysecret);
+        if(validateuser && verifyToken._id){
+            return res.status(201).json({validateuser})
+        }
+        else{
+            return res.status(404).json({message:"User not exist"});
+        }
+        
+    } catch (error) {
+       return res.status(401).json({error});
+    }
+})
+
+     //CHANGE PASSWORD
+     
+     router.post('/:id/:token',async(req,res)=>{
+         const {id,token} = req.params ;
+         const {password} = req.body;
+         try {
+             const validateuser = await User.findOne({_id:id,verifytoken:token})
+             
+             const verifyToken = jwt.verify(token,keysecret);
+             if(validateuser && verifyToken._id){
+                 const newpassword = await (password);
+                 const setnewuserpassword = await User.findByIdAndUpdate({_id:id},{password:newpassword});
+                 setnewuserpassword.save();
+                 return res.status(201).json({setnewuserpassword})
+             }
+             else{
+                 return res.status(404).json({message:"User not exist"});
+             }
+         } catch (error) {
+             return res.status(401).json({error});
+         }
+     })
 
 module.exports = router

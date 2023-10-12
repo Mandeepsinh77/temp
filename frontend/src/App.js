@@ -14,7 +14,10 @@ import CustomerEditInput from "./component/CustomerEditInput.js"
 import ChangePsw from './Admin/ChangePsw';
 import AddCustomer from './Admin/FormInput'
 import Itemtable from './component/Itemtable';
-
+import CategoryList from "./Pages/CategoryList";
+import CustomerList from "./Pages/CustomerList";
+import ForgotPsw from './Admin/ForgotPsw';
+import ResetPsw from './Admin/ResetPsw';
 const AppState = createContext();
 
 
@@ -44,7 +47,10 @@ function App() {
           <Route path="/itemtable" element={<Itemtable />} />
           <Route path="/addCustomer" element={<AddCustomer />} />
           <Route path="/CustomerEditInput" element={<CustomerEditInput />} />
-          
+          <Route path="/newcategory" element={<CategoryList />} />
+          <Route path="/CustomerList" element={<CustomerList />} />
+          <Route path="/forgot" element={<ForgotPsw />} />
+          <Route path="/forgotpassword/:id/:token" element={<ResetPsw />} />
 
 
         </Routes>
