@@ -5,12 +5,12 @@
     text-align: left;
 }
 
-.my_side_bar{
+.my_side_bar {
     position: fixed;
-    top:8%;
+    top: 8%;
 }
 
-.category_del_btn{
+.category_del_btn {
     font-family: "Arimo";
     padding: 5px;
     padding-left: 20px;
@@ -20,7 +20,38 @@
     border-radius: 5px;
 }
 
-.category_del_btn:hover{
+.category_del_btn:hover {
     background-color: rgb(199, 24, 24);
     color: white;
+}
+
+
+
+/* sell page */
+.narrow-column {
+    width: 40px;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.item-info span {
+    margin-right: 5px;
+}
+
+
+
+.below-span {
+    margin-left: 15px;
 }

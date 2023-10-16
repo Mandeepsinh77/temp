@@ -4,7 +4,7 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const Category = require("../models/category.js");
 
-router.delete('/deleteCategory/:categoryId', async(req, res) => {
+router.delete('/deleteCategory/:categoryId', async (req, res) => {
   const categoryId = req.params.categoryId;
   console.log(categoryId)
   try {
@@ -23,10 +23,10 @@ router.delete('/deleteCategory/:categoryId', async(req, res) => {
   }
 });
 
-router.delete('/delete-Category/:id',async (req,res)=>{
-  let data = await Category.deleteOne({_id : req.params.id});
+router.delete('/delete-Category/:id', async (req, res) => {
+  let data = await Category.deleteOne({ _id: req.params.id });
   res.send(data)
- 
+
 })
 
 router.post(
@@ -38,7 +38,7 @@ router.post(
     const error = validationResult(req);
 
     if (!error.isEmpty()) {
-      console.log("There is some error");
+      console.log("There is some error in add categorry");
       const errorMessages = error.array().map((error) => error.msg);
       console.log(errorMessages);
       const message = errorMessages[0];
@@ -50,21 +50,19 @@ router.post(
       let category = await Category.findOne({
         category_name: { $regex: newCategory, $options: 'i' }, // Case-insensitive search
       });
-      
+
       if (category) {
         return res
           .status(400)
           .json({ message: 'Sorry, the given category already exists' });
       }
       //create category and save into DB
-      else{
-      category = await Category.create({
-        category_name: newCategory,
-      });
-    }
-      return res
-        .status(200)
-        .json({ message: "Successfully Category added", category });
+      else {
+        category = await Category.create({
+          category_name: newCategory,
+        });
+        return res.status(200).json({ message: "Successfully Category added", category });
+      }
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ message: "Internal server error" });

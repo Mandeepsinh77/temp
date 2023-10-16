@@ -1,8 +1,9 @@
 // import "./FormInput.module.css";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./App.css"
+import swal from "sweetalert";
 
-const FormInput = () =>{
+const FormInput = () => {
     const [formData, setFormData] = useState(
         {
             shopkeeperid: "",
@@ -19,49 +20,66 @@ const FormInput = () =>{
 
         }
     );
-
     const handleSubmit = async (e) => {
         const url = "http://localhost:4000/add/createcustomer";
-        e.preventDefault();    
+        e.preventDefault();
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-          
-          if (response.status === 200) {
-            // Customer added successfully
-            alert('Customer added successfully');
-            // Clear the form
-            setFormData({
-              shopkeeperid: "",
-              firstname: "",
-              middlename: "",
-              lastname: "",
-              address: "",
-              city: "",
-              pincode: "",
-              state: "",
-              country: "",
-              email: "",
-              phoneno: ""
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
-          } else {
-            // Handle errors if necessary
-            alert("Error Adding Customer");
-            console.error('Error adding customer');
-          }
-        } catch (error) {
-          console.error('Error adding customer:', error);
-        }
-      }
 
-    return(  
+            if (response.status === 200) {
+                // Customer added successfully
+                // alert('Customer added successfully');
+                swal({
+                    title: "Customer Added Successfully",
+                    icon: "success",
+                    button: false,
+                    timer: 3000
+                })
+                // Clear the form
+                setFormData({
+                    shopkeeperid: "",
+                    firstname: "",
+                    middlename: "",
+                    lastname: "",
+                    address: "",
+                    city: "",
+                    pincode: "",
+                    state: "",
+                    country: "",
+                    email: "",
+                    phoneno: ""
+                });
+            } else {
+                // Handle errors if necessary
+                // alert("Error Adding Customer");
+                swal({
+                    title: "Error Adding Customer",
+                    icon: "error",
+                    button: false,
+                    timer: 3000
+                })
+                // console.error('Error adding customer');
+            }
+        } catch (error) {
+            // console.error('Error adding customer:', error);
+            swal({
+                title: `Internal Server Error ${error}`,
+                icon: "error",
+                button: false,
+                timer: 3000
+            })
+        }
+    }
+
+    return (
         <>
-       <div className="customer_form">
+            <div className="customer_form">
                 <form action="" className="customer_form_details" onSubmit={handleSubmit}>
                     <h3 className="customer_head">Customer Details</h3>
                     <div className="my_form" id="mytable">
@@ -94,7 +112,7 @@ const FormInput = () =>{
                                 placeholder="Firstname"
                                 required
                             />
-                           <input
+                            <input
                                 type="text"
                                 id="middlename"
                                 name="middlename"
@@ -103,7 +121,7 @@ const FormInput = () =>{
                                 placeholder="Middlename"
                                 required
                             />
-                           <input
+                            <input
                                 type="text"
                                 id="lastname"
                                 name="lastname"
@@ -151,7 +169,7 @@ const FormInput = () =>{
                                 placeholder="state"
                                 required
                             />
-                             <input
+                            <input
                                 type="text"
                                 id="country"
                                 name="country"
@@ -161,26 +179,26 @@ const FormInput = () =>{
                                 required
                             />
                             <div className="form-row phno_email" >
-                            <label htmlFor="email">Email: </label><br />
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                placeholder="email"
-                                required
-                            />
-                            <label htmlFor="phno">Phone:</label><br />
-                            <input
-                                type="text"
-                                id="phoneno"
-                                name="phoneno"
-                                value={formData.phoneno}
-                                onChange={(e) => setFormData({ ...formData, phoneno: e.target.value })}
-                                placeholder="phoneno"
-                                required
-                            />
+                                <label htmlFor="email">Email: </label><br />
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    placeholder="email"
+                                    required
+                                />
+                                <label htmlFor="phno">Phone:</label><br />
+                                <input
+                                    type="text"
+                                    id="phoneno"
+                                    name="phoneno"
+                                    value={formData.phoneno}
+                                    onChange={(e) => setFormData({ ...formData, phoneno: e.target.value })}
+                                    placeholder="phoneno"
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="form-row" id="customer_form_btn">
@@ -192,7 +210,7 @@ const FormInput = () =>{
                     </div>
                 </form>
             </div>
-    </>
+        </>
     );
 }
 

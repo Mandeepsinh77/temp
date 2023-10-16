@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import swal from "sweetalert";
 function CategoryList() {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState("");
@@ -14,7 +14,14 @@ function CategoryList() {
     }
 
     if (categories.some((category) => category.category_name === newCategory)) {
-      alert("Category already exists."); // You can show an alert or handle it in another way
+      // alert("Category already exists."); // You can show an alert or handle it in another way
+      swal({
+        title: "Category already exists",
+        icon: "error",
+        button: false,
+        timer: 3000
+      })
+      setNewCategory("");
       return;
     }
     try {
@@ -55,17 +62,38 @@ function CategoryList() {
 
     const res = await data.json();
     console.log(res);
+    swal({
+      title: "Category Added succesfully",
+      icon: "success",
+      button: false,
+      timer: 3000
+    })
+    setNewCategory("");
+
+    fetchCategory();
   }
 
-  const handleDeleteCategory = async (Id)=>{
-    window.alert(Id)
-    let data = await fetch(`http://localhost:4000/category_crud/delete-Category/${Id}`,{
-      method : 'delete',
-      headers : {
-        'Content-Type' : 'application/json'
+  const handleDeleteCategory = async (Id) => {
+    // window.alert(Id)
+    let data = await fetch(`http://localhost:4000/category_crud/delete-Category/${Id}`, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
     console.log(data)
+    const res = await data.json();
+    // if (res.ok) {
+
+    swal({
+      title: "Category deleted succesfully",
+      icon: "success",
+      button: false,
+      timer: 3000
+    })
+    // } else {
+    //   window.alert("Some error to delete an category")
+    // }
     fetchCategory();
   }
 
@@ -74,7 +102,7 @@ function CategoryList() {
   //     setChangeColor({ selectedRow  });
   //   }
   // }
-  return ( 
+  return (
     <div className="container mx-auto">
       <div className="mt-4  flex justify-center items-center ">
         <input
@@ -105,7 +133,7 @@ function CategoryList() {
             </tr>
           </thead>
           <tbody>
-            {categories? categories && categories.map((category, index) => (
+            {categories ? categories && categories.map((category, index) => (
               // {console.log(category.category_name)}
               <tr className="text-center category_row" key={index}>
                 <td className="border border-gray-300 px-4 py-2">
@@ -117,8 +145,8 @@ function CategoryList() {
                 <td className="border border-gray-300 px-4 py-2">
                   <button
                     className="category_del_btn"
-                     onClick={()=>handleDeleteCategory(category._id)}
-                      >
+                    onClick={() => handleDeleteCategory(category._id)}
+                  >
                     Delete
                   </button>
                 </td>

@@ -15,7 +15,7 @@ const Login = () => {
     password: "",
   });
 
-  
+
   const { setData } = useData();
 
   async function validateData() {
@@ -29,15 +29,15 @@ const Login = () => {
     })
     const data = await res.json();
     console.log(data);
-    console.log(data["message"]);
-    console.log(data.data.user.username);
-    
-    const username = data.data.user.username;
+    // console.log(data["message"]);
 
-    setData(username);
+
 
 
     if (res.ok) {
+      // console.log(data.data.user.username);
+      const username = data.data.user.username;
+      setData(username);
       useAppState.setLogin(true);
       swal({
         title: "Successfully Loged In",
@@ -54,8 +54,6 @@ const Login = () => {
       // });
 
       navigate("/")
-      
-
 
     } else {
       swal({
@@ -74,15 +72,20 @@ const Login = () => {
       validateData()
 
     } catch (err) {
-      window.alert(err);
+      swal({
+        title: err,
+        icon: "error",
+        button: false,
+        timer: 3000
+      })
     }
   };
 
 
   return (
-    
+
     <div className="min-h-screen flex items-center justify-center">
-      
+
       <video
         className="absolute top-0 left-0 object-cover w-full h-full opacity-80 z-0"
         loop
@@ -125,13 +128,13 @@ const Login = () => {
             Log In
           </button>
         </form>
-        <p className="mt-4 text-center p-2 text-2xl text-gray-700 text-sm">
+        <p className="mt-4 text-center p-2 font-bold  text-gray-700 text-sm">
           Do not have account ?
           <Link to="/signup" className="ml-1 text-green-500 font-semibold">
             Sign Up
           </Link>
         </p>
-        <p className=" text-center font-bold text-2xl text-gray-700 text-sm">
+        <p className=" text-center font-bold  text-gray-700 text-sm">
           Forgot Password
           <Link to="/forgot" className=" hover:underline decoration-4 ml-1 text-green-500 font-semibold">
             Click Here

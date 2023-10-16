@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { AppState } from '../App';
 import { useData } from '../useContext/DataContext';
 
-const Navbar = ({ links, setAddCustomer, setContact, setitemList, setAddItem, setcategoryList }) => {
+const Navbar = ({ links, setAddCustomer, setContact, setitemList, setAddItem, setcustomerList, setcategoryList, setSell }) => {
 
   const [open, setOpen] = useState(false);
 
@@ -74,6 +74,8 @@ const Navbar = ({ links, setAddCustomer, setContact, setitemList, setAddItem, se
                   setContact(false)
                   setitemList(false)
                   setcategoryList(false)
+                  setSell(false)
+                  setcustomerList(false)
                   setAddCustomer(true)
                 }} className="bg-[#1F3F49] drop-shadow-xl text-white px-5 py-2 rounded-full hover:bg-white hover:text-green-800 hover:border-2 duration-200 mx-2 ">
                   Customer +
@@ -85,6 +87,8 @@ const Navbar = ({ links, setAddCustomer, setContact, setitemList, setAddItem, se
                   setitemList(false)
                   setAddCustomer(false)
                   setcategoryList(false)
+                  setSell(false)
+                  setcustomerList(false)
                   setAddItem(true)
                 }} className="bg-[#1F3F49] drop-shadow-xl w-[120px] text-white px-5 py-2 rounded-full hover:bg-white hover:text-green-800 hover:border-2 duration-200 mx-2 ">
                   Item +
